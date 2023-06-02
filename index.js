@@ -6,6 +6,8 @@ const bodyParser = require('body-parser');
 const app = express();
 const mongoURI = 'mongodb+srv://dragme:HBXrSHZaJqemsDtW@cluster0.oadoa02.mongodb.net/?retryWrites=true&w=majority'; // Ganti dengan URL MongoDB Anda
 
+app.use(cors())
+
 // Koneksi ke MongoDB
 mongoose.connect(mongoURI, { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => {
