@@ -5,6 +5,7 @@ const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const app = express();
 const mongoURI = 'mongodb+srv://dragme:HBXrSHZaJqemsDtW@cluster0.oadoa02.mongodb.net/?retryWrites=true&w=majority'; // Ganti dengan URL MongoDB Anda
+const cors = require('cors');
 
 const corsOptions = {
   origin: ['https://api-dragme.vercel.app/api/users', 'http://localhost:3000'], // Add your allowed origins here
