@@ -11,11 +11,11 @@ const getAllUsers = async (req, res) => {
 };
 
 const loginUser = async (req, res) => {
-  const { username, password } = req.body;
+  const { email, password } = req.body;
 
   try {
     // Cek apakah pengguna ada dalam database
-    const user = await User.findOne({ username });
+    const user = await User.findOne({ email });
 
     if (!user) {
       return res.status(404).json({ message: 'Pengguna tidak ditemukan' });
