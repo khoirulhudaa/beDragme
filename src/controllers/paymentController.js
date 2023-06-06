@@ -26,32 +26,6 @@ const callback = (req, res) => {
       });
 };
 
-// Ini dipanggil saat masuk halaman status pembyaran di Frontend
-const handleTransactionStatus = (transactionStatus, orderId) => {
-    switch (transactionStatus) {
-      case 'capture':
-        // Transaction is successful
-        console.log(`Transaction with order ID ${orderId} is successful.`);
-        break;
-      case 'deny':
-        // Transaction is denied
-        console.log(`Transaction with order ID ${orderId} is denied.`);
-        break;
-      case 'expire':
-        // Transaction is expired
-        console.log(`Transaction with order ID ${orderId} is expired.`);
-        break;
-      case 'cancel':
-        // Transaction is canceled
-        console.log(`Transaction with order ID ${orderId} is canceled.`);
-        break;
-      default:
-        // Transaction is pending
-        console.log(`Transaction with order ID ${orderId} is pending.`);
-        break;
-    }
-  };
-
 // Update the database based on the transaction status
 const updateDatabase = (orderId, transactionStatus) => {
   return new Promise((resolve, reject) => {
@@ -138,6 +112,5 @@ const pay = (req, res) => {
 
   module.exports = {
     callback,
-    handleTransactionStatus,
     pay
   }
