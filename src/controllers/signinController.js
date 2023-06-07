@@ -15,7 +15,7 @@ passport.use(
     {
       clientID: GOOGLE_CLIENT_ID,
       clientSecret: GOOGLE_CLIENT_SECRET,
-      callbackURL: '/auth/google1/signin/callback',
+      callbackURL: '/google1/signin/callback',
     },
     (accessToken, refreshToken, profile, done) => {
       // Here, you can create or authenticate the user in your database
