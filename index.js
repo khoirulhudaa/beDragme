@@ -12,6 +12,11 @@ app.use(session({ secret: 'YOUR_SESSION_SECRET', resave: false, saveUninitialize
 app.use(passport.initialize());
 app.use(passport.session());
 
+// Atur mesin templat EJS
+app.set('view engine', 'ejs');
+
+// Atur folder tampilan (views) sebagai tempat untuk file EJS
+app.set('views', __dirname + '/src/views');
 
 // Serialize user object
 passport.serializeUser((user, done) => {
@@ -41,10 +46,12 @@ app.use(bodyParser.json())
 const userRoutes = require('./src/routes/userRoutes');
 const authRoutes = require('./src/routes/authRoutes');
 const paymentRoutes = require('./src/routes/paymentRoutes');
+const viewsRoutes = require('./src/routes/viewsRoutes');
 
 // Gunakan rute
 app.use('/payment', paymentRoutes);
 app.use('/api/users', userRoutes);
+app.use('/views', viewsRoutes);
 app.use('/', authRoutes);
 
 // Tangani kesalahan jika rute tidak ditemukan
