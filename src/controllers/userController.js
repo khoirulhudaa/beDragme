@@ -37,8 +37,8 @@ const loginUser = async (req, res) => {
 // Membuat pengguna baru
 const createUser = async (req, res) => {
   try {
-    const { username, password } = req.body;
-    const user = new User({ username, password });
+    const { username, email, password } = req.body;
+    const user = new User({ username, email, password });
     await user.save();
     res.status(201).json(user);
   } catch (error) {
