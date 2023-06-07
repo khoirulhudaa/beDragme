@@ -45,7 +45,7 @@ const paymentRoutes = require('./src/routes/paymentRoutes');
 // Gunakan rute
 app.use('/payment', paymentRoutes);
 app.use('/api/users', userRoutes);
-app.use('/auth', authRoutes);
+app.use('/', authRoutes);
 
 // Tangani kesalahan jika rute tidak ditemukan
 app.use((req, res, next) => {
