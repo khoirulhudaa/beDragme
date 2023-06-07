@@ -5,8 +5,8 @@ const User = require('../models/User');
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
 
 // Replace with your own client ID and secret
-const GOOGLE_CLIENT_ID = '642067740354-iouvostn1qmhi3ghla0rt2spn5g4pfu3.apps.googleusercontent.com';
-const GOOGLE_CLIENT_SECRET = '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';
+const GOOGLE_CLIENT_ID = '337965628676-3l4f1jg6v37irqph0a1v5toovpr8rkbj.apps.googleusercontent.com';
+const GOOGLE_CLIENT_SECRET = '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';
 
 // Configure Google OAuth strategy
 passport.use(
