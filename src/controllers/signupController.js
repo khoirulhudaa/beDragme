@@ -5,8 +5,8 @@ const User = require('../models/User');
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
 
 // Replace with your own client ID and secret
-const GOOGLE_CLIENT_ID = '642067740354-kj485jcofbkas0kctabggtj2l5hpds6i.apps.googleusercontent.com';
-const GOOGLE_CLIENT_SECRET = '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';
+const GOOGLE_CLIENT_ID = '337965628676-3l4f1jg6v37irqph0a1v5toovpr8rkbj.apps.googleusercontent.com';
+const GOOGLE_CLIENT_SECRET = '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';
 
 // Configure Google OAuth strategy
 passport.use(
@@ -15,7 +15,7 @@ passport.use(
     {
       clientID: GOOGLE_CLIENT_ID,
       clientSecret: GOOGLE_CLIENT_SECRET,
-      callbackURL: '/auth/google2/signup/callback',
+      callbackURL: '/google2/signup/callback',
     },
     (accessToken, refreshToken, profile, done) => {
       // Here, you can create or authenticate the user in your database

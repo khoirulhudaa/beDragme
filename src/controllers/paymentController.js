@@ -16,41 +16,19 @@ const callback = (req, res) => {
     // Update the database based on the transaction status
     updateDatabase(orderId, transactionStatus)
       .then(() => {
+        const data = {
+          order_id: orderID,
+          transactionStatus
+        }
         // Send a response to Midtrans indicating that the callback has been processed successfully
-        res.sendStatus(200);
+        res.status(200).json({ message: data })
       })
       .catch((error) => {
         console.error('Error updating database:', error);
         // Send an error response to Midtrans
-        res.sendStatus(500);
+        res.status(500).json({ messae:error });
       });
 };
-
-// Ini dipanggil saat masuk halaman status pembyaran di Frontend
-const handleTransactionStatus = (transactionStatus, orderId) => {
-    switch (transactionStatus) {
-      case 'capture':
-        // Transaction is successful
-        console.log(`Transaction with order ID ${orderId} is successful.`);
-        break;
-      case 'deny':
-        // Transaction is denied
-        console.log(`Transaction with order ID ${orderId} is denied.`);
-        break;
-      case 'expire':
-        // Transaction is expired
-        console.log(`Transaction with order ID ${orderId} is expired.`);
-        break;
-      case 'cancel':
-        // Transaction is canceled
-        console.log(`Transaction with order ID ${orderId} is canceled.`);
-        break;
-      default:
-        // Transaction is pending
-        console.log(`Transaction with order ID ${orderId} is pending.`);
-        break;
-    }
-  };
 
 // Update the database based on the transaction status
 const updateDatabase = (orderId, transactionStatus) => {
@@ -118,11 +96,12 @@ const pay = (req, res) => {
       
       // transaction redirect url
       let transactionRedirectUrl = transaction.redirect_url;
-      res.redirect(transaction.redirect_url)
+      res.status(200).json({ message: transaction.redirect_url })
       console.log('transactionRedirectUrl:',transactionRedirectUrl);
   })
   .catch((e)=>{
       console.log('Error occured:',e.message);
+      res.status(403).json({ message: e.message })
   });
 };
 
@@ -138,6 +117,5 @@ const pay = (req, res) => {
 
   module.exports = {
     callback,
-    handleTransactionStatus,
     pay
   }
