@@ -6,7 +6,7 @@ const cors = require('cors');
 const passport = require('passport');
 const session = require('express-session');
 
-aapp.use(cors({
+app.use(cors({
   origin: 'http://localhost:3000', // Atur asal yang diizinkan
   methods: ['GET', 'POST'], // Atur metode yang diizinkan
   allowedHeaders: ['Content-Type', 'Authorization'], // Atur header yang diizinkan
