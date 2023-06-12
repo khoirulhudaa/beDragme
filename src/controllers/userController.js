@@ -69,8 +69,18 @@ const createUser = async (req, res) => {
   }
 };
 
+// Keluar dari akun saat ini
+const logout = async () => {
+    try {
+      await res.status(201);
+    } catch (error) {
+      await res.send(error);
+    }
+}
+
 module.exports = {
   getAllUsers,
   createUser,
-  loginUser
+  loginUser,
+  logout
 };
