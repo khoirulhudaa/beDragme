@@ -11,7 +11,4 @@ router.post('/signUp', userController.createUser);
 // Membuat pengguna baru
 router.post('/signIn', userController.loginUser);
 
-// Keluar akun
-router.post('/logout', userController.logout);
-
 module.exports = router;
