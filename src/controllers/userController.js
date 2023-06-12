@@ -54,7 +54,9 @@ const createUser = async (req, res) => {
     const { username, email, password } = req.body;
     const existingUser = await User.findOne({ username });
     if (existingUser) return res.status(400).json({ message: 'Username already exists' });
-
+    if(username.length < 3) return res.status(401).json({ message: 'Username minimal 3 characters' });
+    if(password.length < 5) return res.status(402).json({ message: 'Password minimal 5 characters' });
+    
     const salt = await bcrypt.genSalt(10);
     const hashedPassword = await bcrypt.hash(password, salt);
     
