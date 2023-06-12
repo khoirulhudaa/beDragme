@@ -20,7 +20,7 @@ const loginUser = async (req, res) => {
     const user = await User.findOne({ email });
 
     if (!user) {
-      return res.status(404).json({ message: 'Pengguna tidak ditemukan' });
+      return res.status(404).json({ message: 'User not found!' });
     }
 
     // Periksa kecocokan password
@@ -31,20 +31,20 @@ const loginUser = async (req, res) => {
       }
 
       if (!isMatch) {
-        return res.status(401).json({ message: 'Passsword salah!' });
+        return res.status(401).json({ message: 'Wrong email or password!!' });
       }
 
       // Create and sign the JWT token
       const token = jwt.sign({ userId: user._id }, 'Swiftvel', { expiresIn: '1h' });
 
       // Return the token to the client
-      return res.status(200).json({ message: 'Login berhasil', token });
+      return res.status(200).json({ message: 'Login successfully', token });
     });
 
     // Berhasil login
   } catch (error) {
     console.error(error);
-    return res.status(500).json({ message: 'Terjadi kesalahan server' });
+    return res.status(500).json({ message: 'Error internal server!' });
   }
 };
 
