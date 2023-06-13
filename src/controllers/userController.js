@@ -38,7 +38,7 @@ const loginUser = async (req, res) => {
       const token = jwt.sign({ userId: user._id }, 'Swiftvel', { expiresIn: '1h' });
 
       // Return the token to the client
-      return res.status(201).json({ token: token, data: user });
+      return res.json({ token: token, data: user, status: 201 });
     });
 
     // Berhasil login
