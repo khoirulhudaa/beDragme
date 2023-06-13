@@ -6,22 +6,12 @@ const cors = require('cors');
 const passport = require('passport');
 const session = require('express-session');
 
-// app.use(cors({
-//   origin: 'http://localhost:3000', // Atur asal yang diizinkan
-//   credentials: true,
-//   methods: ['GET', 'POST'], // Atur metode yang diizinkan
-//   allowedHeaders: ['Content-Type', 'Authorization'],
-// }));
-
-app.use((req, res, next) => {
-  res.header('Access-Control-Allow-Origin', '*');
-  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization');
-  if (req.method === 'OPTIONS') {
-    res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, PATCH, DELETE');
-    return res.status(200).json({});
-  }
-  next();
-});
+app.use(cors({
+  origin: 'http://localhost:3000', // Atur asal yang diizinkan
+  credentials: true,
+  methods: ['GET', 'POST'], // Atur metode yang diizinkan
+  allowedHeaders: ['Content-Type', 'Authorization'],
+}));
 
 
 app.use(session({ secret: 'YOUR_SESSION_SECRET', resave: false, saveUninitialized: false }));
