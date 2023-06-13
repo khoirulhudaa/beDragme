@@ -13,8 +13,8 @@ const getAllUsers = async (req, res) => {
 };
 
 const getUserOne = async (req, res) => {
-  const {email} = req.body
   try {
+    const {email} = req.body
     const users = await User.findOne({ email });
 
     if (!users) {
