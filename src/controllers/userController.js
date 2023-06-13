@@ -18,7 +18,7 @@ const getUserOne = async (req, res) => {
     const users = await User.findOne({ email });
 
     if (!users) {
-      return res.json({ message: 'User not found', status: 404 });
+      return res.json({ message: 'User not found', status: 404, email: email });
     }
     return res.json({message: users, status: 201});
   
