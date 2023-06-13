@@ -15,7 +15,7 @@ const getAllUsers = async (req, res) => {
 const getUserOne = async (req, res) => {
   const {email} = req.body
   try {
-    const users = await User.find({ email });
+    const users = await User.findOne({ email });
 
     if (!users) {
       return res.json({ message: 'User not found', status: 404 });
