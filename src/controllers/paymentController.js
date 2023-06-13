@@ -63,11 +63,11 @@ const updateDatabase = (orderId, transactionStatus) => {
 // Handle the payment request
 const pay = (req, res) => {
 
-  const { email, order_id } = req.body;
+  const { email, order_id, gross_amount } = req.body;
 
   const transactionDetails = {
     order_id: order_id, // Ganti dengan ID pesanan Anda
-    gross_amount: 100000 ,// Ganti dengan jumlah pembayaran yang ingin Anda lakukan,
+    gross_amount: gross_amount ,// Ganti dengan jumlah pembayaran yang ingin Anda lakukan,
   };
 
   const enabledPayments = ['gopay', 'bank_transfer'];
