@@ -10,6 +10,7 @@ app.use(cors({
   origin: 'http://localhost:3000', // Atur asal yang diizinkan
   credentials: true,
   methods: ['GET', 'POST'], // Atur metode yang diizinkan
+  allowedHeaders: ['Content-Type', 'Authorization'],
 }));
 
 
