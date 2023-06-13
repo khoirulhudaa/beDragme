@@ -1,6 +1,7 @@
 const midtransClient = require('midtrans-client');
 const User = require('../models/User');
 
+
 // Initialize the Midtrans client
 const client = new midtransClient.Snap({
     isProduction: false,
@@ -103,9 +104,29 @@ const pay = (req, res) => {
   });
 };
 
+const cancelOrder = async () => {
+  try {
+    const orderId = req.params; // Ganti dengan orderId yang ingin Anda batalkan
+    const serverKey = 'SB-Mid-server-pWe0WclyXpqqs_ObC4SOkmYo'; // Ganti dengan Server Key Midtrans Anda
+    const endpoint = `https://api.sandbox.midtrans.com/v2/${orderId}/cancel`;
+
+    const response = await axios.post(endpoint, {}, {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Basic ${Buffer.from(`${serverKey}:`).toString('base64')}`,
+      },
+    });
+
+    return res.json({message: response, status: 200});
+  } catch (error) {
+    console.error('Error cancelling order:', error.response.data);
+    return res.json({ message: 'Server error', status: 500 });
+  }
+}
 
 
   module.exports = {
     callback,
-    pay
+    pay,
+    cancelOrder
   }
