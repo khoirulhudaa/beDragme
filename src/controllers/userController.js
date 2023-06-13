@@ -40,21 +40,23 @@ const loginUser = async (req, res) => {
     }
 
     // Periksa kecocokan password
-    bcrypt.compare(password, user.password, (err, isMatch) => {
-      if (err) {
-        return res.json({ message: 'Internal server error', status: 500 });
-      }
-
-      if (!isMatch) {
-        return res.json({ message: 'Wrong email or password!!', status: 401 });
-      }
-
-      // Create and sign the JWT token
-      const token = jwt.sign({ userId: user._id }, 'Swiftvel', { expiresIn: '1h' });
-
-      // Return the token to the client
-      return res.json({ token: token, data: user, status: 201 });
-    });
+    if(user) {
+      bcrypt.compare(password, user.password, (err, isMatch) => {
+        if (err) {
+          return res.json({ message: 'Internal server error', status: 500 });
+        }
+  
+        if (!isMatch) {
+          return res.json({ message: 'Wrong email or password!!', status: 401 });
+        }
+  
+        // Create and sign the JWT token
+        const token = jwt.sign({ userId: user._id }, 'Swiftvel', { expiresIn: '1h' });
+  
+        // Return the token to the client
+        return res.json({ token: token, data: user, status: 201 });
+      });
+    }
 
     // Berhasil login
   } catch (error) {
