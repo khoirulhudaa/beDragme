@@ -25,7 +25,7 @@ const callback = (req, res) => {
         return res.json({ message: data, status: 201 })
       })
       .catch((error) => {
-        console.error('Error updating database:', error);
+        console.log('Error updating database:', error);
         // Send an error response to Midtrans
         return res.json({ messae:error, status: 500 });
       });
@@ -119,6 +119,20 @@ const cancelOrder = async (req, res) => {
     });
 
     const data = await response.json()
+    // Update the database based on the transaction status
+    // Update database user
+    const filter = { email: email }; // Replace with your filter condition
+    const update = { status: 'cancel' }; // Replace with the fields you want to update
+    
+    User.updateOne(filter, update)
+    .then((result) => {
+      console.log('Document updated successfully');
+      return res.json({message: data, status: 200});
+    })
+    .catch((error) => {
+      console.error('Error updating document:', error);
+    });
+
     return res.json({message: data, status: 200});
 
   } catch (error) {
