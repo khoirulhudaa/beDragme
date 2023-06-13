@@ -12,6 +12,16 @@ const getAllUsers = async (req, res) => {
   }
 };
 
+const getUserOne = async (req, res) => {
+  const {email} = req.body
+  try {
+    const users = await User.find({ email });
+    return res.json({users});
+  } catch (error) {
+    return res.json({ message: error })
+  }
+}
+
 const loginUser = async (req, res) => {
   const { email, password } = req.body;
 
@@ -72,4 +82,5 @@ module.exports = {
   getAllUsers,
   createUser,
   loginUser,
+  getUserOne
 };

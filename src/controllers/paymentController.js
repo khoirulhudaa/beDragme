@@ -21,12 +21,12 @@ const callback = (req, res) => {
           transactionStatus
         }
         // Send a response to Midtrans indicating that the callback has been processed successfully
-        res.status(200).json({ message: data })
+        return res.json({ message: data, status: 201 })
       })
       .catch((error) => {
         console.error('Error updating database:', error);
         // Send an error response to Midtrans
-        res.status(500).json({ messae:error });
+        return res.json({ messae:error, status: 500 });
       });
 };
 
@@ -102,6 +102,8 @@ const pay = (req, res) => {
       return res.json({ message: e.message, status: 403 })
   });
 };
+
+
 
   module.exports = {
     callback,

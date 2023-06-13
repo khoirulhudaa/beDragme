@@ -11,4 +11,7 @@ router.post('/signUp', userController.createUser);
 // Membuat pengguna baru
 router.post('/signIn', userController.loginUser);
 
+// MAbil pengguna berdasarkan email
+router.get('/:email', userController.getUserOne);
+
 module.exports = router;
