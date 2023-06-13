@@ -95,13 +95,11 @@ const pay = (req, res) => {
       });
       
       // transaction redirect url
-      let transactionRedirectUrl = transaction.redirect_url;
-      res.status(200).json({ message: transaction.redirect_url })
-      console.log('transactionRedirectUrl:',transactionRedirectUrl);
+      const transactionRedirectUrl = transaction.redirect_url;
+      return res.json({ message: transactionRedirectUrl, status: 201 })
   })
   .catch((e)=>{
-      console.log('Error occured:',e.message);
-      res.status(403).json({ message: e.message })
+      return res.json({ message: e.message, status: 403 })
   });
 };
 
