@@ -6,9 +6,9 @@ const jwt = require('jsonwebtoken');
 const getAllUsers = async (req, res) => {
   try {
     const users = await User.find();
-    res.json(users);
+    return res.json({users});
   } catch (error) {
-    res.status(500).json({ message: 'Error retrieving users' });
+    return res.json({ message: 'Error retrieving users', status: 500 });
   }
 };
 
@@ -20,18 +20,17 @@ const loginUser = async (req, res) => {
     const user = await User.findOne({ email });
 
     if (!user) {
-      return res.status(404).json({ message: 'User not found!' });
+      return res.json({ message: 'User not found!', status: 404 });
     }
 
     // Periksa kecocokan password
     bcrypt.compare(password, user.password, (err, isMatch) => {
       if (err) {
-        console.error('Error comparing passwords:', err);
-        return res.status(500).json({ message: 'Internal server error' });
+        return res.json({ message: 'Internal server error', status: 500 });
       }
 
       if (!isMatch) {
-        return res.status(401).json({ message: 'Wrong email or password!!' });
+        return res.json({ message: 'Wrong email or password!!', status: 401 });
       }
 
       // Create and sign the JWT token
@@ -44,7 +43,7 @@ const loginUser = async (req, res) => {
     // Berhasil login
   } catch (error) {
     console.error(error);
-    return res.status(500).json({ message: 'Error internal server!' });
+    return res.json({ message: 'Error internal server!', status: 500 });
   }
 };
 
@@ -53,9 +52,9 @@ const createUser = async (req, res) => {
   try {
     const { username, email, password } = req.body;
     const existingUser = await User.findOne({ username });
-    if (existingUser) return res.status(400).json({ message: 'Username already exists' });
-    if(username.length < 3) return res.status(401).json({ message: 'Username minimal 3 characters' });
-    if(password.length < 5) return res.status(402 ).json({ message: 'Password minimal 5 characters' });
+    if (existingUser) return res.json({ message: 'Username already exists', status: 400 });
+    if(username.length < 3) return res.json({ message: 'Username minimal 3 characters', status: 401 });
+    if(password.length < 5) return res.json({ message: 'Password minimal 5 characters', status: 402 });
     
     const salt = await bcrypt.genSalt(10);
     const hashedPassword = await bcrypt.hash(password, salt);
@@ -63,9 +62,9 @@ const createUser = async (req, res) => {
     const user = new User({ username, email, password: hashedPassword  });
     await user.save();
 
-    res.status(201).json(user);
+    return res.json({user, status: 201});
   } catch (error) {
-    res.status(500).json({ message: error });
+    return res.json({ message: error, status: 500 });
   }
 };
 
