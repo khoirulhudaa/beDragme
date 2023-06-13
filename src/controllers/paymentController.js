@@ -121,7 +121,7 @@ const cancelOrder = async (req, res) => {
     const data = await response.json()
     // Update the database based on the transaction status
     // Update database user
-    const filter = { email: email }; // Replace with your filter condition
+    const filter = { email: req.body.email }; // Replace with your filter condition
     const update = { status: 'cancel' }; // Replace with the fields you want to update
     
     User.updateOne(filter, update)
