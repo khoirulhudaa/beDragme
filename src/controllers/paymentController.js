@@ -106,9 +106,9 @@ const pay = (req, res) => {
 
 const cancelOrder = async () => {
   try {
-    const orderId = req.params; // Ganti dengan orderId yang ingin Anda batalkan
+    const order_id = req.params; // Ganti dengan orderId yang ingin Anda batalkan
     const serverKey = 'SB-Mid-server-pWe0WclyXpqqs_ObC4SOkmYo'; // Ganti dengan Server Key Midtrans Anda
-    const endpoint = `https://api.sandbox.midtrans.com/v2/${orderId}/cancel`;
+    const endpoint = `https://api.sandbox.midtrans.com/v2/${order_id}/cancel`;
 
     const response = await axios.post(endpoint, {}, {
       headers: {
