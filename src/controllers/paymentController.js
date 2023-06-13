@@ -110,14 +110,17 @@ const cancelOrder = async (req, res) => {
     const serverKey = 'SB-Mid-server-pWe0WclyXpqqs_ObC4SOkmYo'; // Ganti dengan Server Key Midtrans Anda
     const endpoint = `https://api.sandbox.midtrans.com/v2/${order_id}/cancel`;
 
-    const response = await axios.post(endpoint, {}, {
+    const response = await fetch(endpoint, {
+      method: 'POST',
       headers: {
         'Content-Type': 'application/json',
         Authorization: `Basic ${Buffer.from(`${serverKey}:`).toString('base64')}`,
       },
     });
 
-    return res.json({message: response, status: 200});
+    const data = await response.json()
+    return res.json({message: data, status: 200});
+    
   } catch (error) {
     return res.json({ message: 'Server error', status: 500 });
   }
