@@ -3,9 +3,9 @@ const User = require('../models/User');
 
 // Initialize the Midtrans client
 const client = new midtransClient.Snap({
-    isProduction: true,
-    serverKey: 'Mid-server-aA8TKwQsCHObr0kYP8yBZJ0S',
-    clientKey: 'Mid-client-cZ27QYXLEKK7gd1r',
+    isProduction: false,
+    serverKey: 'SB-Mid-server-pWe0WclyXpqqs_ObC4SOkmYo',
+    clientKey: 'SB-Mid-client-CP-95tPWv7KkWvF6',
   });
 
 const callback = (req, res) => {
@@ -104,16 +104,6 @@ const pay = (req, res) => {
       res.status(403).json({ message: e.message })
   });
 };
-
-//   client.charge(parameter)
-//     .then((chargeResponse)=>{
-//         console.log('chargeResponse:',JSON.stringify(chargeResponse));
-//     })
-//     .catch((e)=>{
-//       console.log('Error occured:',e.message);
-//   });;  
-
-
 
   module.exports = {
     callback,
