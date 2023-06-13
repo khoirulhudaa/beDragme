@@ -119,7 +119,6 @@ const cancelOrder = async () => {
 
     return res.json({message: response, status: 200});
   } catch (error) {
-    console.error('Error cancelling order:', error.response.data);
     return res.json({ message: 'Server error', status: 500 });
   }
 }
