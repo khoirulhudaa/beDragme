@@ -37,10 +37,10 @@ passport.deserializeUser((user, done) => {
 
 
 // Register dengan GitHub
-exports.registerWithGithub = passport.authenticate('github', { scope: ['user:email'] });
+const registerWithGithub = passport.authenticate('github', { scope: ['user:email'] });
 
 // Callback setelah register dengan GitHub berhasil
-exports.registerWithGithubCallback = (req, res) => {
+const registerWithGithubCallback = (req, res) => {
   // Tambahkan logika pembuatan pengguna baru di sini
   UserGithub.findOne({ email: req.user.email }, (err, user) => {
     if (err) {
@@ -65,3 +65,10 @@ exports.registerWithGithubCallback = (req, res) => {
     }
   });
 };
+
+
+module.exports = {
+    registerWithGithub,
+    registerWithGithubCallback
+  };
+  

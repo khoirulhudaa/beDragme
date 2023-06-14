@@ -29,10 +29,10 @@ passport.deserializeUser((user, done) => {
 });
 
 // Login dengan GitHub
-exports.loginWithGithub = passport.authenticate('github');
+const loginWithGithub = passport.authenticate('github');
 
 // Callback setelah login dengan GitHub berhasil
-exports.loginWithGithubCallback = (req, res) => {
+const loginWithGithubCallback = (req, res) => {
   // Tambahkan logika pengecekan pengguna di sini
   console.log(res.user);
   UserGithub.findOne({ email: req.user.email }, (err, user) => {
@@ -55,3 +55,9 @@ exports.loginWithGithubCallback = (req, res) => {
     }
   });
 };
+
+module.exports = {
+  loginWithGithub,
+  loginWithGithubCallback
+};
+
