@@ -13,7 +13,6 @@ app.use(cors({
   allowedHeaders: ['Content-Type', 'Authorization'],
 }));
 
-
 app.use(session({ secret: 'YOUR_SESSION_SECRET', resave: false, saveUninitialized: false }));
 app.use(passport.initialize());
 app.use(passport.session());
@@ -57,6 +56,7 @@ const viewsRoutes = require('./src/routes/viewsRoutes');
 // Gunakan rute
 app.use('/payment', paymentRoutes);
 app.use('/api/users', userRoutes);
+app.use('/git', userRoutes);
 app.use('/views', viewsRoutes);
 app.use('/', authRoutes);
 
@@ -65,6 +65,6 @@ app.use((req, res, next) => {
   res.status(404).json({ message: 'Route not found' });
 });
 
-app.listen(3002,() => {
-    console.log(`Server running in port 3002`)
+    app.listen(3002,() => {
+console.log(`Server running in port 3002`)
 })
