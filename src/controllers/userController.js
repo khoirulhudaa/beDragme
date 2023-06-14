@@ -51,10 +51,12 @@ const loginUser = async (req, res) => {
       if (isExpired) {
         // Update status user menjadi "standar" jika telah kadaluarsa
         user.status = 'standar';
+        await user.save();
+      }else {
+        res.json({ messageExpired: 'Akun belum kadaluarsa' })
       }
       
       // Simpan data user
-      await user.save();
 
       bcrypt.compare(password, user.password, (err, isMatch) => {
         if (err) {
