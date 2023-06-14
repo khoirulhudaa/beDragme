@@ -34,23 +34,25 @@ exports.loginWithGithub = passport.authenticate('github');
 // Callback setelah login dengan GitHub berhasil
 exports.loginWithGithubCallback = (req, res) => {
   // Tambahkan logika pengecekan pengguna di sini
-  UserGithub.findOne({ email: req.user.email }, (err, user) => {
-    if (err) {
-      return res.json({ message: 'Internal server error', status: 500 });
-    } else if (!user) {
-      const newUser = new UserGithub({
-        username: req.user.username,
-        email: req.user.email
-      });
+  return res.json({ message: req.user })
+  console.log(req.user)
+  // UserGithub.findOne({ email: req.user.email }, (err, user) => {
+  //   if (err) {
+  //     return res.json({ message: 'Internal server error', status: 500 });
+  //   } else if (!user) {
+  //     const newUser = new UserGithub({
+  //       username: req.user.username,
+  //       email: req.user.email
+  //     });
 
-      newUser.save((err) => {
-        if (err) {
-          return res.json({ message: 'Error creating user', status: 500 });
-        }
-        return res.json({ message: 'Login successful', status: 201 });
-      });
-    } else {
-      return res.json({ message: 'Login successful', status: 201 });
-    }
-  });
+  //     newUser.save((err) => {
+  //       if (err) {
+  //         return res.json({ message: 'Error creating user', status: 500 });
+  //       }
+  //       return res.json({ message: 'Login successful', status: 201 });
+  //     });
+  //   } else {
+  //     return res.json({ message: 'Login successful', status: 201 });
+  //   }
+  // });
 };
