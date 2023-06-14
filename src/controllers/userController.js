@@ -43,10 +43,9 @@ const loginUser = async (req, res) => {
     )
       .then((updatedData) => {
         if (updatedData) {
-          return res.json({messageExpired: 'Ada yang expired!'})
 
           // Cek apakah pengguna ada dalam database
-          const user = await User.findOne({ email });
+          const user = User.findOne({ email });
           
           if (!user) {
             return res.json({ message: 'User not found!', status: 404 });
@@ -70,13 +69,12 @@ const loginUser = async (req, res) => {
               return res.json({ token: token, data: user, status: 201 });
             });
             
-          } else {
-            console.log('Tidak ada data yang telah kadaluarsa');
           }
+          return res.json({messageExpired: 'Ada yang expired!'})
+
         }else {
-          return res.json({messageExpired: 'Tidak ada yang expired!'})
            // Cek apakah pengguna ada dalam database
-           const user = await User.findOne({ email });
+           const user = User.findOne({ email });
 
            if (!user) {
              return res.json({ message: 'User not found!', status: 404 });
@@ -103,13 +101,13 @@ const loginUser = async (req, res) => {
            } else {
              console.log('Tidak ada data yang telah kadaluarsa');
            }
+           
+          return res.json({messageExpired: 'Tidak ada yang expired!'})
         }
       })
       .catch((error) => {
         console.error('Gagal mengupdate data', error);
     });
-
-    }
 
     // Berhasil login
   } catch (error) {
