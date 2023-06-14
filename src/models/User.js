@@ -26,7 +26,8 @@ const userSchema = new mongoose.Schema({
     },
   },
   password: { type: String, required: true, minlength: 5 },
-  status: { type: String, default: 'standar' }
+  status: { type: String, default: 'standar' },
+  date: { type: Date, required: true, default: null }
 });
 
 module.exports = mongoose.model('User', userSchema);

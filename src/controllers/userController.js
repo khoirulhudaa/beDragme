@@ -1,6 +1,7 @@
 const User = require('../models/User');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
+const moment = require('moment');
 
 // Mengambil daftar semua pengguna
 const getAllUsers = async (req, res) => {
@@ -32,30 +33,81 @@ const loginUser = async (req, res) => {
   const { email, password } = req.body;
 
   try {
-    // Cek apakah pengguna ada dalam database
-    const user = await User.findOne({ email });
 
-    if (!user) {
-      return res.json({ message: 'User not found!', status: 404 });
-    }
+    // Cek tanggal kadaluarsa akun premium (1 bulan sejak pembelian) 
+    const batasWaktuExpired = moment().subtract(1, 'days');
+    User.findOneAndUpdate(
+      { date: { $lt: batasWaktuExpired } },
+      { $set: { status: 'standar' } },
+      { new: true }
+    )
+      .then((updatedData) => {
+        if (updatedData) {
+          console.log('cek date :', updatedData)
+          // Cek apakah pengguna ada dalam database
+          const user = await User.findOne({ email });
+          
+          if (!user) {
+            return res.json({ message: 'User not found!', status: 404 });
+          }
+          
+          // Periksa kecocokan password
+          if(user) {
+            bcrypt.compare(password, user.password, (err, isMatch) => {
+              if (err) {
+                return res.json({ message: 'Internal server error', status: 500 });
+              }
+        
+              if (!isMatch) {
+                return res.json({ message: 'Wrong email or password!!', status: 401 });
+              }
+        
+              // Create and sign the JWT token
+              const token = jwt.sign({ userId: user._id }, 'Swiftvel', { expiresIn: '1h' });
+        
+              // Return the token to the client
+              return res.json({ token: token, data: user, status: 201 });
+            });
+            
+          } else {
+            console.log('Tidak ada data yang telah kadaluarsa');
+          }
+        }else {
+            console.log('Tidak ada yang expired!')
+           // Cek apakah pengguna ada dalam database
+           const user = await User.findOne({ email });
 
-    // Periksa kecocokan password
-    if(user) {
-      bcrypt.compare(password, user.password, (err, isMatch) => {
-        if (err) {
-          return res.json({ message: 'Internal server error', status: 500 });
+           if (!user) {
+             return res.json({ message: 'User not found!', status: 404 });
+           }
+ 
+           // Periksa kecocokan password
+             if(user) {
+             bcrypt.compare(password, user.password, (err, isMatch) => {
+               if (err) {
+                 return res.json({ message: 'Internal server error', status: 500 });
+               }
+         
+               if (!isMatch) {
+                 return res.json({ message: 'Wrong email or password!!', status: 401 });
+               }
+         
+               // Create and sign the JWT token
+               const token = jwt.sign({ userId: user._id }, 'Swiftvel', { expiresIn: '1h' });
+         
+               // Return the token to the client
+               return res.json({ token: token, data: user, status: 201 });
+             });
+ 
+           } else {
+             console.log('Tidak ada data yang telah kadaluarsa');
+           }
         }
-  
-        if (!isMatch) {
-          return res.json({ message: 'Wrong email or password!!', status: 401 });
-        }
-  
-        // Create and sign the JWT token
-        const token = jwt.sign({ userId: user._id }, 'Swiftvel', { expiresIn: '1h' });
-  
-        // Return the token to the client
-        return res.json({ token: token, data: user, status: 201 });
-      });
+      })
+      .catch((error) => {
+        console.error('Gagal mengupdate data', error);
+    });
+
     }
 
     // Berhasil login

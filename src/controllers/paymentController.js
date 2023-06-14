@@ -1,5 +1,6 @@
 const midtransClient = require('midtrans-client');
 const User = require('../models/User');
+const moment = require('moment');
 
 
 // Initialize the Midtrans client
@@ -15,29 +16,49 @@ const callback = (req, res) => {
     const orderId = requestBody.order_id;
   
     // Update the database based on the transaction status
-    updateDatabase(orderId, transactionStatus)
-      .then(() => {
-        const data = {
-          order_id: orderID,
-          transactionStatus
-        }
-        // Send a response to Midtrans indicating that the callback has been processed successfully
-        return res.json({ message: data, status: 201 })
-      })
-      .catch((error) => {
-        console.log('Error updating database:', error);
-        // Send an error response to Midtrans
-        return res.json({ messae:error, status: 500 });
-      });
+    if(transactionStatus === 'settlement') {
+      const date = moment().toDate();
+
+      updateDatabase(orderId, transactionStatus, date)
+        .then(() => {
+          const data = {
+            order_id: orderID,
+            transactionStatus,
+            date
+          }
+          // Send a response to Midtrans indicating that the callback has been processed successfully
+          return res.json({ message: data, status: 201 })
+        })
+        .catch((error) => {
+          console.log('Error updating database:', error);
+          // Send an error response to Midtrans
+          return res.json({ messae:error, status: 500 });
+        });
+      }else {
+        updateDatabase(orderId, transactionStatus)
+          .then(() => {
+            const data = {
+              order_id: orderID,
+              transactionStatus
+            }
+            // Send a response to Midtrans indicating that the callback has been processed successfully
+            return res.json({ message: data, status: 201 })
+          })
+          .catch((error) => {
+            console.log('Error updating database:', error);
+            // Send an error response to Midtrans
+            return res.json({ messae:error, status: 500 });
+          });
+    }
 };
 
 // Update the database based on the transaction status
-const updateDatabase = (orderId, transactionStatus) => {
+const updateDatabase = (orderId, transactionStatus, date) => {
   return new Promise((resolve, reject) => {
     // Perform the database update here
     // Update a document matching a specific condition
     const filter = { idAccount: orderId }; // Replace with your filter condition
-    const update = { status: transactionStatus }; // Replace with the fields you want to update
+    const update = { status: transactionStatus, date }; // Replace with the fields you want to update
 
     User.updateOne(filter, update)
       .then((result) => {
