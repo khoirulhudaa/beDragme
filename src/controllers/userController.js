@@ -43,7 +43,8 @@ const loginUser = async (req, res) => {
     )
       .then((updatedData) => {
         if (updatedData) {
-          console.log('cek date :', updatedData)
+          return res.json({messageExpired: 'Ada yang expired!'})
+
           // Cek apakah pengguna ada dalam database
           const user = await User.findOne({ email });
           
@@ -73,7 +74,7 @@ const loginUser = async (req, res) => {
             console.log('Tidak ada data yang telah kadaluarsa');
           }
         }else {
-            console.log('Tidak ada yang expired!')
+          return res.json({messageExpired: 'Tidak ada yang expired!'})
            // Cek apakah pengguna ada dalam database
            const user = await User.findOne({ email });
 
