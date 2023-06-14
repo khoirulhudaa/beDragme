@@ -1,7 +1,6 @@
 const User = require('../models/User');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
-const moment = require('moment');
 
 // Mengambil daftar semua pengguna
 const getAllUsers = async (req, res) => {
@@ -33,7 +32,6 @@ const loginUser = async (req, res) => {
   const { email, password } = req.body;
 
   try {
-
     // Cek apakah pengguna ada dalam database
     const user = await User.findOne({ email });
 
@@ -43,19 +41,6 @@ const loginUser = async (req, res) => {
 
     // Periksa kecocokan password
     if(user) {
-
-       // Periksa apakah tanggal login telah kadaluarsa setelah 1 hari
-      const expirationDate = moment(user.date).add(1, 'day');
-      const isExpired = moment().isAfter(expirationDate);
-  
-      if (isExpired) {
-        // Update status user menjadi "standar" jika telah kadaluarsa
-        user.status = 'standar';
-      }
-      
-      // Simpan data user
-      await user.save();
-
       bcrypt.compare(password, user.password, (err, isMatch) => {
         if (err) {
           return res.json({ message: 'Internal server error', status: 500 });
@@ -73,6 +58,7 @@ const loginUser = async (req, res) => {
       });
     }
 
+    // Berhasil login
   } catch (error) {
     console.error(error);
     return res.json({ message: 'Error internal server!', status: 500 });
