@@ -52,12 +52,8 @@ const loginUser = async (req, res) => {
         // Update status user menjadi "standar" jika telah kadaluarsa
         user.status = 'standar';
         await user.save();
-      }else {
-        user.status = 'belum expired';
-        await user.save();
-        console.log('Tidak ada akun expired')
       }
-      
+        
       // Simpan data user
 
       bcrypt.compare(password, user.password, (err, isMatch) => {
