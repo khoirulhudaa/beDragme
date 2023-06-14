@@ -3,8 +3,6 @@ const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const app = express();
 const cors = require('cors');
-const passport = require('passport');
-const session = require('express-session');
 
 app.use(cors({
   origin: '*', // Atur asal yang diizinkan
@@ -13,25 +11,11 @@ app.use(cors({
   allowedHeaders: ['Content-Type', 'Authorization'],
 }));
 
-app.use(session({ secret: 'YOUR_SESSION_SECRET', resave: false, saveUninitialized: false }));
-app.use(passport.initialize());
-app.use(passport.session());
-
 // Atur mesin templat EJS
 app.set('view engine', 'ejs');
 
 // Atur folder tampilan (views) sebagai tempat untuk file EJS
 app.set('views', __dirname + '/src/views');
-
-// Serialize user object
-passport.serializeUser((user, done) => {
-  done(null, user);
-});
-
-// Deserialize user object
-passport.deserializeUser((user, done) => {
-  done(null, user);
-});
 
 
 // Koneksi ke MongoDB
