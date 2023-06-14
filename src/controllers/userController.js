@@ -53,7 +53,7 @@ const loginUser = async (req, res) => {
         user.status = 'standar';
         await user.save();
       }else {
-        res.json({ messageExpired: 'Akun belum kadaluarsa' })
+        return res.json({ messageExpired: 'Akun belum kadaluarsa' })
       }
       
       // Simpan data user
