@@ -8,7 +8,8 @@ const session = require('express-session');
 
 app.use(cors({
   origin: 'http://localhost:3000', // Atur asal yang diizinkan
-  methods: ['GET', 'POST', 'OPTIONS'], // Atur metode yang diizinkan
+  credentials: true,
+  methods: ['GET', 'POST'], // Atur metode yang diizinkan
   allowedHeaders: ['Content-Type', 'Authorization'],
 }));
 
