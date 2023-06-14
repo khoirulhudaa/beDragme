@@ -53,9 +53,9 @@ const loginUser = async (req, res) => {
         user.status = 'standar';
         await user.save();
       }
-        
-      // Simpan data user
 
+      // Simpan data user
+      
       bcrypt.compare(password, user.password, (err, isMatch) => {
         if (err) {
           return res.json({ message: 'Internal server error', status: 500 });
