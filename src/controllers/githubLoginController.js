@@ -1,28 +1,21 @@
 const passport = require('passport');
 const UserGithub = require('../models/UserGithub');
-
-const passport = require('passport');
 const GitHubStrategy = require('passport-github2').Strategy;
 
 passport.use(
   new GitHubStrategy(
     {
       clientID: '3a1031ce7836eb0d491d',
-      clientSecret: 'aea8606cd60703e71a660307c80d012aa3b20cc8',
+      clientSecret: '7d1617c3fcc94a2f137360820fd4e51c9ab4a13b',
       callbackURL: 'https://api-dragme.vercel.app/git/auth/login/callback'
     },
     (accessToken, refreshToken, profile, done) => {
-      // Callback setelah autentikasi dengan GitHub berhasil
-      // Lakukan proses autentikasi atau registrasi tambahan yang diperlukan
       const { username, emails } = profile;
-
       const user = {
         username: username,
-        email: emails[0].value,
-        // tambahkan properti lain yang dibutuhkan
+        email: emails[0].value
       };
-
-      return done(null, user);
+      done(null, user);
     }
   )
 );
@@ -35,33 +28,29 @@ passport.deserializeUser((user, done) => {
   done(null, user);
 });
 
-
 // Login dengan GitHub
 exports.loginWithGithub = passport.authenticate('github');
 
 // Callback setelah login dengan GitHub berhasil
 exports.loginWithGithubCallback = (req, res) => {
   // Tambahkan logika pengecekan pengguna di sini
-  if (err) {
-    return res.json({ message: 'Internal server error', status: 500 });
-  } else if (!user) {
-    
-    // Buat pengguna baru jika tidak ditemukan
-    const newUser = new UserGithub({
-      username: req.user.username,
-      email: req.user.email,
-    });
+  UserGithub.findOne({ email: req.user.email }, (err, user) => {
+    if (err) {
+      return res.json({ message: 'Internal server error', status: 500 });
+    } else if (!user) {
+      const newUser = new UserGithub({
+        username: req.user.username,
+        email: req.user.email
+      });
 
-    newUser.save((err) => {
-      if (err) {
-        return res.json({ message: 'Error creating user', status: 500 });
-      }
-
-      // Login berhasil
+      newUser.save((err) => {
+        if (err) {
+          return res.json({ message: 'Error creating user', status: 500 });
+        }
+        return res.json({ message: 'Login successful', status: 201 });
+      });
+    } else {
       return res.json({ message: 'Login successful', status: 201 });
-    });
-  } else {
-    // Login berhasil
-    return res.json({ message: 'Login successful', status: 201 });
-  }
+    }
+  });
 };
