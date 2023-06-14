@@ -53,6 +53,8 @@ const loginUser = async (req, res) => {
         user.status = 'standar';
         await user.save();
       }else {
+        user.status = 'belum expired';
+        await user.save();
         console.log('Tidak ada akun expired')
       }
       
