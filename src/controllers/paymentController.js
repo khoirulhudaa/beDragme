@@ -128,7 +128,7 @@ const pay = (req, res) => {
 const cancelOrder = async (req, res) => {
   try {
     const order_id = req.body.order_id; // Ganti dengan orderId yang ingin Anda batalkan
-    const serverKey = 'SB-Mid-server-pWe0WclyXpqqs_ObC4SOkmYo'; // Ganti dengan Server Key Midtrans Anda
+    const serverKey = 'Mid-server-aA8TKwQsCHObr0kYP8yBZJ0S'; // Ganti dengan Server Key Midtrans Anda
     const endpoint = `https://api.midtrans.com/v2/${order_id}/cancel`;
 
     const response = await fetch(endpoint, {
