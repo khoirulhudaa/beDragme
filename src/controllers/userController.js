@@ -45,7 +45,7 @@ const loginUser = async (req, res) => {
     if(user) {
 
        // Periksa apakah tanggal login telah kadaluarsa setelah 1 hari
-      const expirationDate = moment(user.date).add(1, 'day');
+      const expirationDate = moment(user.date).add(30, 'day');
       const isExpired = moment().isAfter(expirationDate);
   
       if (isExpired) {
