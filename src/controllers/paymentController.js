@@ -5,9 +5,9 @@ const moment = require('moment');
 
 // Initialize the Midtrans client
 const client = new midtransClient.Snap({
-    isProduction: false,
-    serverKey: 'SB-Mid-server-pWe0WclyXpqqs_ObC4SOkmYo',
-    clientKey: 'SB-Mid-client-CP-95tPWv7KkWvF6',
+    isProduction: true,
+    serverKey: 'Mid-server-aA8TKwQsCHObr0kYP8yBZJ0S',
+    clientKey: 'Mid-client-cZ27QYXLEKK7gd1r',
   });
 
 const callback = (req, res) => {
