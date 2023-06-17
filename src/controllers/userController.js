@@ -28,8 +28,9 @@ const forgotPassword = async (req, res) => {
 
       return result;
     };
-    user.resetPasswordToken = generateRandomString(5);
-    user.resetPasswordExpires = Date.now() + 3600000; // Token akan kadaluarsa dalam 1 jam
+    const tokens = generateRandomString(5);
+    user.resetPasswordToken = tokens;
+    user.resetPassword = Date.now(); // Token akan kadaluarsa dalam 1 jam
     await user.save();
 
     // Kirim email reset password
@@ -47,11 +48,9 @@ const forgotPassword = async (req, res) => {
       to: user.email,
       subject: 'Reset Password',
       text: `
-        <p>
           Please click the following link to reset your password: ${req.headers.origin}/reset-password/swfitveler1635dsd3290
-        </p>
-        <br />
-        <p>Token reset password: ${generateRandomString(5)}</p>
+          
+          Token reset password: ${tokens}</p>
         `
     };
 
@@ -164,10 +163,53 @@ const createUser = async (req, res) => {
   }
 };
 
+const updatePassword = (req, res) => {
+  const { password, token } = req.body;
+  updateDatabase(password, token)
+  .then(() => {
+    // Send a response to Midtrans indicating that the callback has been processed successfully
+    return res.json({ status: 201 })
+  })
+  .catch((error) => {
+    // Send an error response to Midtrans
+    return res.json({ messae:error, status: 500 });
+  });
+}
+
+// Update the database based on the transaction status
+const updateDatabase = (password, token) => {
+  return new Promise((resolve, reject) => {
+    // Perform the database update here
+    // Update a document matching a specific condition
+    const filter = { resetPasswordToken: token }; // Replace with your filter condition
+    const update = { password }; // Replace with the fields you want to update
+
+    User.updateOne(filter, update)
+      .then((result) => {
+        console.log(result);
+      })
+      .catch((error) => {
+        console.error('Error updating document:', error);
+      });
+
+    // Simulating a delay for the database update
+    setTimeout(() => {
+      if (Math.random() < 0.8) {
+        // Database update is successful
+        resolve();
+      } else {
+        // Database update failed
+        reject(new Error('Failed to update database.'));
+      }
+    }, 1000);
+  });
+};
+
 module.exports = {
   getAllUsers,
   createUser,
   loginUser,
   getUserOne,
-  forgotPassword
+  forgotPassword,
+  updatePassword
 };

@@ -17,4 +17,7 @@ router.get('/:email', userController.getUserOne);
 // Reset password
 router.post('/forgotPassword', userController.forgotPassword);
 
+// Confirm password
+router.post('/updatePassword', userController.updatePassword);
+
 module.exports = router;
