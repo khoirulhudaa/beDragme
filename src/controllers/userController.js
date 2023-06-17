@@ -60,13 +60,6 @@ const forgotPassword = async (req, res) => {
           margin: 0 auto;
           padding: 20px;
         }
-        .header {
-          text-align: center;
-          margin-bottom: 20px;
-        }
-        .logo {
-          width: 20px;
-        }
         .content {
           background-color: #ffffff;
           padding: 30px;
@@ -105,9 +98,6 @@ const forgotPassword = async (req, res) => {
         }
       </style>
       <div class="container">
-        <div class="header">
-          <img src="https://images-builder.vercel.app/img/HD.png" alt="Logo" class="logo">
-        </div>
         <div class="content">
           <h1 class="title">Reset Your Password</h1>
           <p class="message">Hello, Swiftveler</p>
