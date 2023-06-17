@@ -65,8 +65,7 @@ const forgotPassword = async (req, res) => {
           margin-bottom: 20px;
         }
         .logo {
-          width: 100px;
-          height: auto;
+          width: 20px;
         }
         .content {
           background-color: #ffffff;
