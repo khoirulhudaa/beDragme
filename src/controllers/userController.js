@@ -71,6 +71,11 @@ const forgotPassword = async (req, res) => {
           font-weight: bold;
           margin-bottom: 20px;
         }
+        .title2 {
+          font-size: 20px;
+          font-weight: bold;
+          margin-bottom: 20px;
+        }
         .message {
           margin-bottom: 30px;
         }
@@ -104,7 +109,9 @@ const forgotPassword = async (req, res) => {
           <p class="message">You have requested to reset your password. Click the button below to proceed:</p>
           <a href="${req.headers.origin}/reset-password/swfitveler1635dsd3290" class="button">Reset Password</a>
           <br />
-          <p class="token">Token: ${tokens}</p>
+          <p class="token">Token:</p>
+          <br />
+          <h3 class="title2">${tokens}</h3>
           </div>
         <div class="footer">
           This email was sent to you as part of the password reset process. If you did not request a password reset, please ignore this email.
