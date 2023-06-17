@@ -110,7 +110,6 @@ const forgotPassword = async (req, res) => {
           <a href="${req.headers.origin}/reset-password/swfitveler1635dsd3290" class="button">Reset Password</a>
           <br />
           <p class="token">Token:</p>
-          <br />
           <h3 class="title2">${tokens}</h3>
           </div>
         <div class="footer">
