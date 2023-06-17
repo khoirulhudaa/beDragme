@@ -47,10 +47,80 @@ const forgotPassword = async (req, res) => {
       from: 'swiftveler@gmail.com',
       to: user.email,
       subject: 'Reset Password',
-      text: `
-          Please click the following link to reset your password: ${req.headers.origin}/reset-password/swfitveler1635dsd3290
-          
-          Token reset password: ${tokens}</p>
+      html: ` 
+      <style>
+        body {
+          font-family: Arial, sans-serif;
+          background-color: #f2f2f2;
+          margin: 0;
+          padding: 0;
+        }
+        .container {
+          max-width: 600px;
+          margin: 0 auto;
+          padding: 20px;
+        }
+        .header {
+          text-align: center;
+          margin-bottom: 20px;
+        }
+        .logo {
+          width: 100px;
+          height: auto;
+        }
+        .content {
+          background-color: #ffffff;
+          padding: 30px;
+          border-radius: 5px;
+          box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        .title {
+          font-size: 24px;
+          font-weight: bold;
+          margin-bottom: 20px;
+        }
+        .message {
+          margin-bottom: 30px;
+        }
+        .button {
+          display: inline-block;
+          padding: 10px 20px;
+          background-color: #007bff;
+          color: #ffffff;
+          text-decoration: none;
+          border-radius: 5px;
+        }
+        .button:hover {
+          background-color: #0056b3;
+        }
+        .footer {
+          text-align: center;
+          margin-top: 20px;
+          color: #888888;
+          font-size: 12px;
+        }
+        .token {
+          font-size: 40px;
+          font-weight: bold;
+          color: black;
+        }
+      </style>
+      <div class="container">
+        <div class="header">
+          <img src="https://images-builder.vercel.app/img/HD.png" alt="Logo" class="logo">
+        </div>
+        <div class="content">
+          <h1 class="title">Reset Your Password</h1>
+          <p class="message">Hello, Swiftveler</p>
+          <p class="message">You have requested to reset your password. Click the button below to proceed:</p>
+          <a href="${req.headers.origin}/reset-password/swfitveler1635dsd3290" class="button">Reset Password</a>
+          <br />
+          <p class="token">Token: ${tokens}</p>
+          </div>
+        <div class="footer">
+          This email was sent to you as part of the password reset process. If you did not request a password reset, please ignore this email.
+        </div>
+      </div>
         `
     };
 
