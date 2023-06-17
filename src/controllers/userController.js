@@ -162,8 +162,11 @@ const loginUser = async (req, res) => {
 
   try {
 
-    // Cek apakah pengguna ada dalam database
-    const user = await User.findOne({ email });
+    // Periksa apakah ada pengguna dengan email yang sesuai atau username yang sesuai
+    const user = await User.findOne({
+      $or: [{ email: email }, { username: email }]
+    });
+
 
     if (!user) {
       return res.json({ message: 'User not found!', status: 404 });
