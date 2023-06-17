@@ -38,7 +38,7 @@ const forgotPassword = async (req, res) => {
       service: 'Gmail', 
       auth: {
         user: 'swiftveler@gmail.com',
-        pass: 'SwiftvelerPASSWORD1'
+        pass: 'tdanurqnqzeeappq'
       }
     });
 
