@@ -167,7 +167,6 @@ const loginUser = async (req, res) => {
       $or: [{ email: email }, { username: email }]
     });
 
-
     if (!user) {
       return res.json({ message: 'User not found!', status: 404 });
     }
