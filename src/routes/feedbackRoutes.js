@@ -6,6 +6,6 @@ const feedbackController = require('../controllers/feedbackController');
 router.get('/', feedbackController.getFeedback);
 
 // Membuat pengguna baru
-router.post('/', userController.createFeedback);
+router.post('/create', feedbackController.createFeedback);
 
 module.exports = router;
