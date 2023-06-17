@@ -52,12 +52,12 @@ const userRoutes = require('./src/routes/userRoutes');
 const authRoutes = require('./src/routes/authRoutes');
 const paymentRoutes = require('./src/routes/paymentRoutes');
 const viewsRoutes = require('./src/routes/viewsRoutes');
-// const githubRoutes = require('./src/routes/githubRoutes');
+const feedbackRoutes = require('./src/routes/feedbackRoutes');
 
 // Gunakan rute
 app.use('/payment', paymentRoutes);
 app.use('/api/users', userRoutes);
-// app.use('/git', githubRoutes);
+app.use('/feedback', feedbackRoutes);
 app.use('/views', viewsRoutes);
 app.use('/', authRoutes);
 
