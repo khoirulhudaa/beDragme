@@ -232,8 +232,10 @@ const createUser = async (req, res) => {
 const updatePassword = async (req, res) => {
   const { password, token } = req.body;
   if(password.length < 5) return res.json({ message: 'Password minimal 5 characters', status: 402 });
+  const salt = await bcrypt.genSalt(10);
+  const hashedPassword = await bcrypt.hash(password, salt);
 
-  await updateDatabase(password, token)
+  await updateDatabase(hashedPassword, token)
   .then(() => {
     // Send a response to Midtrans indicating that the callback has been processed successfully
     return res.json({ status: 201 })
@@ -249,11 +251,9 @@ const updateDatabase = (password, token) => {
   return new Promise((resolve, reject) => {
     // Perform the database update here
     // Update a document matching a specific condition
-    const salt = bcrypt.genSalt(10);
-    const hashedPassword = bcrypt.hash(password, salt);
 
     const filter = { resetPasswordToken: token }; // Replace with your filter condition
-    const update = { password: hashedPassword }; // Replace with the fields you want to update
+    const update = { password }; // Replace with the fields you want to update
 
     User.updateOne(filter, update)
       .then((result) => {
