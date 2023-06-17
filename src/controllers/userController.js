@@ -35,10 +35,9 @@ const forgotPassword = async (req, res) => {
     // Kirim email reset password
     const transporter = nodemailer.createTransport({
       // Konfigurasi SMTP transporter (sesuaikan dengan penyedia email Anda)
-      service: 'Gmail',
+      service: 'Gmail', 
       auth: {
         user: 'swiftveler@gmail.com',
-        pass: 'SwiftvelerPASSWORD1'
       }
     });
 
