@@ -10,12 +10,12 @@ const getFeedback = async() => {
 }
 
 const createFeedback = async(req, res) => {
-    const { username, feedback } = req.body;
+    const { feedback } = req.body;
     try {
         const existingUser = await User.findOne({ username });
         if (!existingUser) return res.json({ message: 'You should login!', status: 404 });
         
-        const feedbackResponse = new Feedback({ username, feedback  });
+        const feedbackResponse = new Feedback({ feedback  });
         await feedbackResponse.save();
         return res.json({feedbackResponse, status: 201});
 
