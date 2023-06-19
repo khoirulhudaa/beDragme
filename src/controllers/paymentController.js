@@ -37,11 +37,12 @@ const callback = (req, res) => {
           return res.json({ messae:error, status: 500 });
         });
       }else {
-        updateDatabase(orderId, transactionStatus)
+        updateDatabase(orderId, transactionStatus, paymentType)
           .then(() => {
             const data = {
               order_id: orderID,
-              transactionStatus
+              transactionStatus,
+              paymentType
             }
             // Send a response to Midtrans indicating that the callback has been processed successfully
             return res.json({ message: data, status: 201 })
