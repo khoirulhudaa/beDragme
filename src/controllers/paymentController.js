@@ -14,16 +14,18 @@ const callback = (req, res) => {
     const requestBody = req.body;
     const transactionStatus = requestBody.transaction_status;
     const orderId = requestBody.order_id;
+    const paymentType = requestBody.payment_type;
   
     // Update the database based on the transaction status
     if(transactionStatus === 'settlement') {
       const date = moment().toDate();
 
-      updateDatabase(orderId, transactionStatus, date)
+      updateDatabase(orderId, transactionStatus, paymentType, date)
         .then(() => {
           const data = {
             order_id: orderID,
             transactionStatus,
+            paymentType,
             date
           }
           // Send a response to Midtrans indicating that the callback has been processed successfully
@@ -53,12 +55,12 @@ const callback = (req, res) => {
 };
 
 // Update the database based on the transaction status
-const updateDatabase = (orderId, transactionStatus, date) => {
+const updateDatabase = (orderId, transactionStatus, paymentType, date) => {
   return new Promise((resolve, reject) => {
     // Perform the database update here
     // Update a document matching a specific condition
     const filter = { idAccount: orderId }; // Replace with your filter condition
-    const update = { status: transactionStatus, date }; // Replace with the fields you want to update
+    const update = { status: transactionStatus, date, paymentType }; // Replace with the fields you want to update
 
     User.updateOne(filter, update)
       .then((result) => {
