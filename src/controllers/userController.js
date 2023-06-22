@@ -107,7 +107,7 @@ const forgotPassword = async (req, res) => {
           <h1 class="title">Reset Your Password</h1>
           <p class="message">Hello, Swiftveler</p>
           <p class="message">You have requested to reset your password. Click the button below to proceed:</p>
-          <a href="${req.headers.origin}/reset-password/swfitveler1635dsd3290" class="button">Reset Password</a>
+          <a href="${req.headers.origin}/reset-password/swfitveler1635dsd3290ADHGWYGDXVVXCV16215651HSCHXZCY67YCHSOCIXslskjdsh781d655cxhcjxmnkzcx" class="button">Reset Password</a>
           <br />
           <p class="token">Token:</p>
           <h3 class="title2">${tokens}</h3>
