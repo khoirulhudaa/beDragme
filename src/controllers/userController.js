@@ -260,12 +260,14 @@ const updateLimitReact = async (req, res) => {
           user.limit += 1;
           await user.save();
           console.log('limit update');
-      }else {
+          return res.json({ message: 'success update limit', status: 201 })
+        }else {
           console.log('Maximal limit');
           return res.json({ message: 'Limit maximum', status: 500 });
-      }
-    }else {
+        }
+      }else {
         console.log('Email not found!');
+        return res.json({ message: 'Email not found!', status: 404 })
     }
   } catch (error) {
       console.error('Error message:', error);
