@@ -257,7 +257,7 @@ const updateLimitReact = async (req, res) => {
     // Jika pengguna ditemukan, tambahkan 1 ke nilai "limit"
     if (user) {
       if(user.limitReact !== 2) {
-          user.limit = user.limit + 1;
+          user.limitReact += 1;
           await user.save();
           console.log('limit update');
           return res.json({ message: 'success update limit', status: 201 })
