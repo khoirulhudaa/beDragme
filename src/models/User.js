@@ -16,6 +16,7 @@ const userSchema = new mongoose.Schema({
   password: { type: String, required: true, minlength: 5 },
   status: { type: String, default: 'standar' },
   paymentType: { type: String, default: null },
+  limitReact: { type: Number, default: 0 },
   date: { type: Date, default: null },
   resetPasswordToken: String,
   resetPasswordExpires: Date
