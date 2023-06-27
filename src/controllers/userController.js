@@ -248,7 +248,7 @@ const updatePassword = async (req, res) => {
 }
 
 const updateLimitReact = async (req, res) => {
-  const { email } = req.body;
+  const { email } = req.params;
 
   try {
     // Cari pengguna berdasarkan email
