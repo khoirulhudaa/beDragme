@@ -20,4 +20,7 @@ router.post('/forgotPassword', userController.forgotPassword);
 // Confirm password
 router.post('/updatePassword', userController.updatePassword);
 
+// Add limitReact
+router.post('/updateLimitReact:email', userController.updateLimitReact);
+
 module.exports = router;

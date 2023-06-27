@@ -247,6 +247,31 @@ const updatePassword = async (req, res) => {
   });
 }
 
+const updateLimitReact = async (req, res) => {
+  const { email } = req.body;
+
+  try {
+    // Cari pengguna berdasarkan email
+    const user = await User.findOne({ email });
+
+    // Jika pengguna ditemukan, tambahkan 1 ke nilai "limit"
+    if (user) {
+      if(user.limitReact !== 2) {
+          user.limit += 1;
+          await user.save();
+          console.log('limit update');
+      }else {
+          console.log('Maximal limit');
+          return res.json({ message: 'Limit maximum', status: 500 });
+      }
+    }else {
+        console.log('Email not found!');
+    }
+  } catch (error) {
+      console.error('Error message:', error);
+  }
+}
+
 // Update the database based on the transaction status
 const updateDatabase = (password, token) => {
   return new Promise((resolve, reject) => {
@@ -283,5 +308,6 @@ module.exports = {
   loginUser,
   getUserOne,
   forgotPassword,
-  updatePassword
+  updatePassword,
+  updateLimitReact
 };
