@@ -13,6 +13,7 @@ const userSchema = new mongoose.Schema({
       message: 'Invalid email format',
     },
   },
+  intro: { type: Number, default: 0 },
   password: { type: String, required: true, minlength: 5 },
   status: { type: String, default: 'standar' },
   paymentType: { type: String, default: null },
@@ -20,7 +21,6 @@ const userSchema = new mongoose.Schema({
   date: { type: Date, default: null },
   resetPasswordToken: String,
   resetPasswordExpires: Date,
-  intro: { type: Number, default: 0 }
 });
 
 module.exports = mongoose.model('User', userSchema);

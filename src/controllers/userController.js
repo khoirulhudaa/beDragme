@@ -338,5 +338,6 @@ module.exports = {
   getUserOne,
   forgotPassword,
   updatePassword,
-  updateLimitReact
+  updateLimitReact,
+  initialIntro
 };
