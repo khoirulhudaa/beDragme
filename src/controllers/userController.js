@@ -274,6 +274,33 @@ const updateLimitReact = async (req, res) => {
   }
 }
 
+const initialIntro = async (req, res) => {
+  const { email } = req.params;
+
+  try {
+    // Cari pengguna berdasarkan email
+    const user = await User.findOne({ email });
+
+    // Jika pengguna ditemukan, tambahkan 1 ke nilai "limit"
+    if (user) {
+      if(user.intro !== 1) {
+          user.intro += 1;
+          await user.save();
+          console.log('intro update');
+          return res.json({ message: 'success update intro', status: 201 })
+        }else {
+          console.log('Maximal intro');
+          return res.json({ message: 'Intro maximum', status: 500 });
+        }
+      }else {
+        console.log('Email not found!');
+        return res.json({ message: 'Email not found!', status: 404 })
+    }
+  } catch (error) {
+      console.error('Error message:', error);
+  }
+}
+
 // Update the database based on the transaction status
 const updateDatabase = (password, token) => {
   return new Promise((resolve, reject) => {

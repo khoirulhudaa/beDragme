@@ -19,7 +19,8 @@ const userSchema = new mongoose.Schema({
   limitReact: { type: Number, default: 0 },
   date: { type: Date, default: null },
   resetPasswordToken: String,
-  resetPasswordExpires: Date
+  resetPasswordExpires: Date,
+  intro: { type: Number, default: 0 }
 });
 
 module.exports = mongoose.model('User', userSchema);
