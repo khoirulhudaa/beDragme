@@ -23,7 +23,4 @@ router.post('/updatePassword', userController.updatePassword);
 // Add limitReact
 router.post('/updateLimitReact/:email', userController.updateLimitReact);
 
-// Add initialIntro
-router.post('/initialIntro/:email', userController.initialIntro);
-
 module.exports = router;
