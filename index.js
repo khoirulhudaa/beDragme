@@ -66,6 +66,6 @@ app.use((req, res, next) => {
   res.status(404).json({ message: 'Route not found' });
 });
 
-    app.listen(3002,() => {
-console.log(`Server running in port 3002`)
+app.listen(3002,() => {
+  console.log(`Server running in port 3002`)
 })

@@ -4,7 +4,7 @@ const userSchema = new mongoose.Schema({
   username: { type: String, required: true, minlength: 3, },
   idAccount: {type: String, default: null},
   email: { type: String, required: true, unique: true,
-    validate: {
+     validate: {
       validator: function (value) {
         // Use a regular expression to validate the email format
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
