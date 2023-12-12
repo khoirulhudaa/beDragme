@@ -2,12 +2,13 @@ const midtransClient = require('midtrans-client');
 const User = require('../models/User');
 const moment = require('moment');
 
+
 // Initialize the Midtrans client
 const client = new midtransClient.Snap({
     isProduction: true,
     serverKey: 'Mid-server-aA8TKwQsCHObr0kYP8yBZJ0S',
     clientKey: 'Mid-client-cZ27QYXLEKK7gd1r',
-});
+  });
 
 const callback = (req, res) => {
     const requestBody = req.body;
@@ -94,11 +95,11 @@ const pay = (req, res) => {
     gross_amount: gross_amount ,// Ganti dengan jumlah pembayaran yang ingin Anda lakukan,
   };
 
-  // const enabledPayments = ['gopay', 'bank_transfer'];
+  const enabledPayments = ['gopay', 'bank_transfer'];
 
   client.createTransaction({
     transaction_details: transactionDetails,
-    // enabled_payments: enabledPayments
+    enabled_payments: enabledPayments
   })
   .then((transaction)=>{
       // transaction token
